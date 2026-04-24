@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "eu.donyka.smoothperspective.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"client.CameraMixin",
+		"client.OptionsMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

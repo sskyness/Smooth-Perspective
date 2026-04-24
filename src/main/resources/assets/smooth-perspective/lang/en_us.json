@@ -1,0 +1,9 @@
+{
+  "smooth_perspective.config.title": "Smooth Perspective",
+  "smooth_perspective.config.category.general": "General",
+  "smooth_perspective.config.animation_duration": "Animation duration",
+  "smooth_perspective.config.animation_duration.value": "%s ms",
+  "smooth_perspective.config.distance": "Distance",
+  "smooth_perspective.config.distance.value": "%s blocks",
+  "smooth_perspective.config.camera_clip": "Ignore walls (Camera Clip)"
+}
