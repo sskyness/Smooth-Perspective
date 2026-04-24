@@ -5,6 +5,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.Locale;
 
@@ -18,33 +19,33 @@ public final class SmoothPerspectiveConfigScreen {
 
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(Component.translatable("smooth_perspective.config.title"));
+                .setTitle(translatable("smooth_perspective.config.title"));
         builder.setSavingRunnable(() -> SmoothPerspectiveConfigManager.update(editableConfig));
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-        ConfigCategory general = builder.getOrCreateCategory(Component.translatable("smooth_perspective.config.category.general"));
+        ConfigCategory general = builder.getOrCreateCategory(translatable("smooth_perspective.config.category.general"));
 
         general.addEntry(entryBuilder
                 .startIntSlider(
-                        Component.translatable("smooth_perspective.config.animation_duration"),
+                        translatable("smooth_perspective.config.animation_duration"),
                         editableConfig.animationDurationMs,
                         0,
                         1000
                 )
                 .setDefaultValue(defaults.animationDurationMs)
-                .setTextGetter(value -> Component.translatable("smooth_perspective.config.animation_duration.value", value))
+                .setTextGetter(value -> translatable("smooth_perspective.config.animation_duration.value", value))
                 .setSaveConsumer(value -> editableConfig.animationDurationMs = value)
                 .build());
 
         general.addEntry(entryBuilder
                 .startIntSlider(
-                        Component.translatable("smooth_perspective.config.distance"),
+                        translatable("smooth_perspective.config.distance"),
                         (int) Math.round(editableConfig.distance * 10.0D),
                         10,
                         160
                 )
                 .setDefaultValue((int) Math.round(defaults.distance * 10.0D))
-                .setTextGetter(value -> Component.translatable(
+                .setTextGetter(value -> translatable(
                         "smooth_perspective.config.distance.value",
                         String.format(Locale.US, "%.1f", value / 10.0D)
                 ))
@@ -53,7 +54,7 @@ public final class SmoothPerspectiveConfigScreen {
 
         general.addEntry(entryBuilder
                 .startBooleanToggle(
-                        Component.translatable("smooth_perspective.config.camera_clip"),
+                        translatable("smooth_perspective.config.camera_clip"),
                         editableConfig.cameraClip
                 )
                 .setDefaultValue(defaults.cameraClip)
@@ -61,5 +62,9 @@ public final class SmoothPerspectiveConfigScreen {
                 .build());
 
         return builder.build();
+    }
+
+    private static Component translatable(String key, Object... args) {
+        return new TranslatableComponent(key, args);
     }
 }

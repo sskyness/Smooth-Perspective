@@ -6,6 +6,7 @@ import eu.donyka.smoothperspective.SmoothPerspective;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -36,7 +37,7 @@ public final class SmoothPerspectiveConfigManager {
         }
 
         try {
-            String rawJson = Files.readString(CONFIG_PATH);
+            String rawJson = new String(Files.readAllBytes(CONFIG_PATH), StandardCharsets.UTF_8);
             SmoothPerspectiveConfig loaded = GSON.fromJson(rawJson, SmoothPerspectiveConfig.class);
             config = loaded == null ? new SmoothPerspectiveConfig() : loaded;
             config.sanitize();
@@ -51,7 +52,7 @@ public final class SmoothPerspectiveConfigManager {
         try {
             config.sanitize();
             Files.createDirectories(CONFIG_PATH.getParent());
-            Files.writeString(CONFIG_PATH, GSON.toJson(config));
+            Files.write(CONFIG_PATH, GSON.toJson(config).getBytes(StandardCharsets.UTF_8));
         } catch (IOException exception) {
             SmoothPerspective.LOGGER.error("Failed to save Smooth Perspective config.", exception);
         }

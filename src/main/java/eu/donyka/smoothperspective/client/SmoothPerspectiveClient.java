@@ -3,7 +3,6 @@ package eu.donyka.smoothperspective.client;
 import eu.donyka.smoothperspective.client.animation.PerspectiveTransitionController;
 import eu.donyka.smoothperspective.client.config.SmoothPerspectiveConfigManager;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 
@@ -13,7 +12,7 @@ public final class SmoothPerspectiveClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         SmoothPerspectiveConfigManager.load();
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> TRANSITIONS.sync(client.options.getCameraType()));
+        TRANSITIONS.sync(Minecraft.getInstance().options.getCameraType());
     }
 
     public static Screen createConfigScreen(Screen parent) {
