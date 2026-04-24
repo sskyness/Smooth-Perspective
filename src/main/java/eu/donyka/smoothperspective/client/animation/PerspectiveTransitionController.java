@@ -98,7 +98,7 @@ public final class PerspectiveTransitionController {
             return 1.0F;
         }
 
-        return Math.clamp((currentTimeMillis - transitionStartedAt) / (float) transitionDurationMs, 0.0F, 1.0F);
+        return clamp((currentTimeMillis - transitionStartedAt) / (float) transitionDurationMs, 0.0F, 1.0F);
     }
 
     private void finishTransition() {
@@ -110,5 +110,9 @@ public final class PerspectiveTransitionController {
                 && Math.abs(sourcePose.yawOffsetDegrees() - targetPose.yawOffsetDegrees()) < 0.0001F
                 && Math.abs(sourcePose.pitchFactor() - targetPose.pitchFactor()) < 0.0001F
                 && sourcePose.detached() == targetPose.detached();
+    }
+
+    private static float clamp(float value, float min, float max) {
+        return Math.max(min, Math.min(max, value));
     }
 }

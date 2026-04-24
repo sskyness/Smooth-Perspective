@@ -14,7 +14,15 @@ public final class SmoothPerspectiveConfig {
     }
 
     public void sanitize() {
-        animationDurationMs = Math.clamp(animationDurationMs, 0, 1000);
-        distance = Math.clamp(distance, 1.0D, 16.0D);
+        animationDurationMs = clamp(animationDurationMs, 0, 1000);
+        distance = clamp(distance, 1.0D, 16.0D);
+    }
+
+    private static int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
+    }
+
+    private static double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(max, value));
     }
 }
