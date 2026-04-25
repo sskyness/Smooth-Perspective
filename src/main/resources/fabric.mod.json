@@ -25,8 +25,8 @@
 		"smooth-perspective.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.19.2",
-		"minecraft": "~1.21.1",
+		"fabricloader": ">=0.15.11",
+		"minecraft": ">=1.21.1 <=1.21.10",
 		"java": ">=21",
 		"fabric-api": "*",
 		"cloth-config": "*"
