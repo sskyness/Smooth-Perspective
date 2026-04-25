@@ -1,8 +1,8 @@
-package eu.donyka.smoothperspective.client.config;
+package eu.donyka.camera.client.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import eu.donyka.smoothperspective.SmoothPerspective;
+import eu.donyka.camera.Core;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.IOException;
@@ -10,20 +10,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public final class SmoothPerspectiveConfigManager {
+public final class ConfigManager {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("smooth-perspective.json");
 
-    private static SmoothPerspectiveConfig config = new SmoothPerspectiveConfig();
+    private static Config config = new Config();
 
-    private SmoothPerspectiveConfigManager() {
+    private ConfigManager() {
     }
 
-    public static SmoothPerspectiveConfig get() {
+    public static Config get() {
         return config;
     }
 
-    public static void update(SmoothPerspectiveConfig updatedConfig) {
+    public static void update(Config updatedConfig) {
         updatedConfig.sanitize();
         config = updatedConfig.copy();
         save();
@@ -38,12 +38,12 @@ public final class SmoothPerspectiveConfigManager {
 
         try {
             String rawJson = new String(Files.readAllBytes(CONFIG_PATH), StandardCharsets.UTF_8);
-            SmoothPerspectiveConfig loaded = GSON.fromJson(rawJson, SmoothPerspectiveConfig.class);
-            config = loaded == null ? new SmoothPerspectiveConfig() : loaded;
+            Config loaded = GSON.fromJson(rawJson, Config.class);
+            config = loaded == null ? new Config() : loaded;
             config.sanitize();
         } catch (Exception exception) {
-            SmoothPerspective.LOGGER.error("Failed to load Smooth Perspective config, using defaults.", exception);
-            config = new SmoothPerspectiveConfig();
+            Core.LOGGER.error("Failed to load Smooth Perspective config, using defaults.", exception);
+            config = new Config();
             config.sanitize();
         }
     }
@@ -54,7 +54,7 @@ public final class SmoothPerspectiveConfigManager {
             Files.createDirectories(CONFIG_PATH.getParent());
             Files.write(CONFIG_PATH, GSON.toJson(config).getBytes(StandardCharsets.UTF_8));
         } catch (IOException exception) {
-            SmoothPerspective.LOGGER.error("Failed to save Smooth Perspective config.", exception);
+            Core.LOGGER.error("Failed to save Smooth Perspective config.", exception);
         }
     }
 }

@@ -4,6 +4,5 @@
   "smooth_perspective.config.animation_duration": "Длительность анимации",
   "smooth_perspective.config.animation_duration.value": "%s мс",
   "smooth_perspective.config.distance": "Distance",
-  "smooth_perspective.config.distance.value": "%s блоков",
-  "smooth_perspective.config.camera_clip": "Игнорировать стены (Camera Clip)"
+  "smooth_perspective.config.distance.value": "%s блоков"
 }
