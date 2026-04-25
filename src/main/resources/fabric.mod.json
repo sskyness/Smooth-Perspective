@@ -3,7 +3,7 @@
 	"id": "smooth-perspective",
 	"version": "${version}",
 	"name": "Smooth Perspective",
-	"description": "Smooth third-person transitions with configurable animation speed, camera distance and optional camera clip.",
+	"description": "Smooth third-person transitions with configurable animation speed and camera distance.",
 	"authors": [
 		"donyka"
 	],
@@ -15,10 +15,10 @@
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"eu.donyka.smoothperspective.client.SmoothPerspectiveClient"
+			"eu.donyka.camera.client.Client"
 		],
 		"modmenu": [
-			"eu.donyka.smoothperspective.client.integration.SmoothPerspectiveModMenu"
+			"eu.donyka.camera.client.integration.MenuCompat"
 		]
 	},
 	"mixins": [
@@ -26,7 +26,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.19.2",
-		"minecraft": ">=1.21.1 <=1.21.11",
+		"minecraft": "~1.21.4",
 		"java": ">=21",
 		"fabric-api": "*",
 		"cloth-config": "*"
