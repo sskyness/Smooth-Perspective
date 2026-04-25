@@ -1,6 +1,6 @@
-package eu.donyka.smoothperspective.mixin.client;
+package eu.donyka.camera.mixin.client;
 
-import eu.donyka.smoothperspective.client.SmoothPerspectiveClient;
+import eu.donyka.camera.client.Client;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Options;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +14,7 @@ public abstract class OptionsMixin {
     @Shadow private CameraType cameraType;
 
     @Inject(method = "setCameraType", at = @At("HEAD"))
-    private void smoothPerspective$onCameraTypeChanged(CameraType newType, CallbackInfo callbackInfo) {
-        SmoothPerspectiveClient.TRANSITIONS.onCameraTypeChanged(cameraType, newType);
+    private void camera$onCameraTypeChanged(CameraType newType, CallbackInfo callbackInfo) {
+        Client.ANIMATOR.onCameraTypeChanged(cameraType, newType);
     }
 }
