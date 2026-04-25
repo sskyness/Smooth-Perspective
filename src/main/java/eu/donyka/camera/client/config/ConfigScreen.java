@@ -1,4 +1,4 @@
-package eu.donyka.smoothperspective.client.config;
+package eu.donyka.camera.client.config;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
@@ -8,18 +8,18 @@ import net.minecraft.network.chat.Component;
 
 import java.util.Locale;
 
-public final class SmoothPerspectiveConfigScreen {
-    private SmoothPerspectiveConfigScreen() {
+public final class ConfigScreen {
+    private ConfigScreen() {
     }
 
     public static Screen create(Screen parent) {
-        SmoothPerspectiveConfig editableConfig = SmoothPerspectiveConfigManager.get().copy();
-        SmoothPerspectiveConfig defaults = new SmoothPerspectiveConfig();
+        Config editableConfig = ConfigManager.get().copy();
+        Config defaults = new Config();
 
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
                 .setTitle(Component.translatable("smooth_perspective.config.title"));
-        builder.setSavingRunnable(() -> SmoothPerspectiveConfigManager.update(editableConfig));
+        builder.setSavingRunnable(() -> ConfigManager.update(editableConfig));
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
         ConfigCategory general = builder.getOrCreateCategory(Component.translatable("smooth_perspective.config.category.general"));
@@ -49,15 +49,6 @@ public final class SmoothPerspectiveConfigScreen {
                         String.format(Locale.US, "%.1f", value / 10.0D)
                 ))
                 .setSaveConsumer(value -> editableConfig.distance = value / 10.0D)
-                .build());
-
-        general.addEntry(entryBuilder
-                .startBooleanToggle(
-                        Component.translatable("smooth_perspective.config.camera_clip"),
-                        editableConfig.cameraClip
-                )
-                .setDefaultValue(defaults.cameraClip)
-                .setSaveConsumer(value -> editableConfig.cameraClip = value)
                 .build());
 
         return builder.build();

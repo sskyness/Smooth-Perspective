@@ -1,7 +1,7 @@
 {
 	"required": true,
-	"package": "eu.donyka.smoothperspective.mixin",
-	"compatibilityLevel": "JAVA_21",
+	"package": "eu.donyka.camera.mixin",
+	"compatibilityLevel": "JAVA_17",
 	"client": [
 		"client.CameraMixin",
 		"client.OptionsMixin"
