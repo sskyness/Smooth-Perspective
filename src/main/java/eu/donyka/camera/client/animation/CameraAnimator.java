@@ -64,9 +64,10 @@ public final class CameraAnimator {
     }
 
     public float getRenderedDistance(float configuredDistance) {
-        CameraPose pose = getCurrentPose(resolveCurrentType());
+        CameraType currentCameraType = resolveCurrentType();
+        CameraPose pose = getCurrentPose(currentCameraType);
         float renderedDistance = pose.distanceFactor() * configuredDistance;
-        if (pose.detached()) {
+        if (shouldKeepHeadClear(currentCameraType)) {
             return Math.max(renderedDistance, MIN_DETACHED_DISTANCE);
         }
         return renderedDistance;
@@ -105,6 +106,14 @@ public final class CameraAnimator {
         }
 
         return clamp((currentTimeMillis - transitionStartedAt) / (float) transitionDurationMs, 0.0F, 1.0F);
+    }
+
+    private boolean shouldKeepHeadClear(CameraType currentCameraType) {
+        if (transitionStartedAt != 0L) {
+            return endPose.detached();
+        }
+
+        return CameraPose.fromCameraType(currentCameraType).detached();
     }
 
     private static float clamp(float value, float min, float max) {
